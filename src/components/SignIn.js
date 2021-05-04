@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 function SignIn() {
 
@@ -8,27 +9,47 @@ function SignIn() {
         password:""
         }  
         
-        const [signInValues, setSignInValues] = useState(initialValue)
-        
-        function onHandleSubmit(e){
-        e.preventDefault();
-        console.log(signInValues)
-        }
+        const [signInValues, setSignInValues] = useState(initialValue);
+        const [authenticated, setAuthenticated] = useState(false);
+        const [error, setError]= useState("")
         
         function onHandleChange(e){
 
-    setSignInValues( {
-        ...signInValues,
-        [e.target.name]:e.target.value
-           
+          setSignInValues( {
+              ...signInValues,
+              [e.target.name]:e.target.value
+                 
+              })
+              }
+
+
+        function onHandleSubmit(e){
+        e.preventDefault();
+        
+        axios.post('http://localhost:1337/auth/local', {
+          identifier: signInValues.email,
+          password: signInValues.password,
         })
-        }
 
-
+        .then(response => {
+          // Handle success.
+          console.log('User profile', response.data.user);
+          console.log('User token', response.data.jwt);
+          setAuthenticated(true);
+        })
+        
+        .catch( (err)=>{
+          console.log(err); 
+        
+        setError(err.response.message[0].messages[0].message)
+       })
+      }
 
     return (
+      <>
+      {authenticated ? <div>Välkommen</div> :
        <form onSubmit={onHandleSubmit}>
-        <div className="min-h-screen flex items-center justify-center bg-pink-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen flex items-center justify-center bg-white py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
             
                 <h2 className="text-center text-3xl font-extrabold text-pink-700">Logga in</h2>
@@ -45,6 +66,8 @@ function SignIn() {
             </div>
             
             <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-pink-700 hover:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-900">Logga in</button>
+            <h2 className="text-red-900">{error}</h2>
+            
             <div className="text-sm">
           <Link className="font-medium text-pink-500 hover:text-pink-700" to="/skapa-konto">
             Har du inte redan ett konto?
@@ -54,6 +77,8 @@ function SignIn() {
         </div>
         </div>
         </form>
+        }
+        </>
     )
 }
 

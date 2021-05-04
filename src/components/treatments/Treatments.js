@@ -5,7 +5,7 @@ import Styling from "./Styling"
 
 function Treatments() {
     return (
-        <div className= "bg-pink-50">
+        <div className= "bg-white">
         <Haircuts />
         <Highlights />
         <Styling />

@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import axios from "axios";
 
 function Form(){
 
@@ -12,6 +13,15 @@ function Form(){
     
     function onHandleSubmit(e){
     e.preventDefault();
+
+    axios.post('http://localhost:1337/stylings', {
+
+      name: formValues.treatmentName,
+      description: formValues.description,
+      price: formValues.treatmentPrice,
+     }).then ( (e) => {console.log(e.data)})
+
+
     }
     
     function onHandleChange(e){
@@ -24,7 +34,7 @@ function Form(){
     
         return(
     
-            <div className="min-h-screen flex items-center justify-center bg-pink-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
         <form onSubmit={onHandleSubmit}>
         <h2 className=" text-center text-3xl font-extrabold text-pink-700 mb-5">Lägg till ny behandling</h2>
@@ -32,6 +42,16 @@ function Form(){
     
           <label htmlFor="treatmentName" className="block text-sm font-medium text-gray-700 m-2">Namn på behandling</label>
           <input name="treatmentName" value={formValues.treatmentName} onChange={onHandleChange} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm"/>
+          </div>
+          <div className="rounded-md shadow-sm -space-y-px">
+          <label htmlFor="treatmentPrice" className="block text-sm font-medium text-gray-700 m-2">
+                Behandlingstyp
+              </label>
+              <select className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm">
+              <option>Styling</option>
+              <option>Klippning</option>
+              <option>Slingor</option>
+              </select>
           </div>
           <div className="rounded-md shadow-sm -space-y-px">
           <label htmlFor="treatmentPrice" className="block text-sm font-medium text-gray-700 m-2">

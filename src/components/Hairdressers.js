@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import ImageCard from "./ImageCard.js";
+import axios from "axios";
 
 const arrayOfHairdressers = [
     {img:"https://cdn.pixabay.com/photo/2015/09/02/13/24/girl-919048__340.jpg", name:"Anna", years:"3 år", specialty:"Fön med styling"} ,
@@ -10,6 +11,21 @@ const arrayOfHairdressers = [
 ]
 
 export default function Hairdressers() {
+
+    const [hairdressers, setHairdressers] = useState([]);
+
+    useEffect(()=>{
+    
+      const fetchHairdressers = async ()=>{
+       const response = await axios.get("http://localhost:1337/hairdressers")
+        console.log(response)
+        setHairdressers(response.data)
+      }
+    fetchHairdressers()
+    
+    }, [])
+
+
     return (
         <>
 <div className="bg-white ">
@@ -17,9 +33,9 @@ export default function Hairdressers() {
     <h2 className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl mt-20">Våra Frisörer</h2>
     </div>
     <div className="flex justify-around flex-wrap">
-{arrayOfHairdressers.map((hairdresser)=>{
+{hairdressers.map((hairdresser)=>{
                  return (
-            <ImageCard key={Math.random()} img={hairdresser.img} name={hairdresser.name} years={hairdresser.years} specialty={hairdresser.specialty}/>
+            <ImageCard key={hairdresser.id} img={hairdresser.img} name={hairdresser.name} years={hairdresser.years} specialty={hairdresser.specialty}/>
             )
         }) }
        </div>

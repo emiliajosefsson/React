@@ -8,7 +8,7 @@ function Menu(){
 
 return(
   <>
-<nav className="bg-pink-800 shadow dark:bg-gray-800">
+<nav className="bg-gradient-to-r from-pink-700 via-pink-650 to-pink-900 shadow dark:bg-gray-800">
   <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
     <div className="relative flex items-center justify-between h-16">
       
@@ -23,15 +23,15 @@ return(
 
     <div className="absolute  flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden sm:block">
           <div className="flex space-x-4">
-            <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/behandlingar">Behandlingar</Link>
-            <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/form">Admin</Link>
-            <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/frisorer">Frisörer</Link>
+            <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/behandlingar">Behandlingar</Link>
+            <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/form">Admin</Link>
+            <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/frisorer">Frisörer</Link>
     </div>
         </div>
       </div>
       <div className="absolute flex items-center justify-items-end pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden sm:block">
-        <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/skapa-konto">Skapa konto</Link>
-        <Link className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/logga-in">Logga in</Link>
+        <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/skapa-konto">Skapa konto</Link>
+        <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/logga-in">Logga in</Link>
     <div>
            
           </div>

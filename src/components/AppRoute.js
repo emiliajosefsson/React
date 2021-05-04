@@ -9,6 +9,7 @@ import Hairdressers from "./Hairdressers.js"
 import Footer from "./Footer.js";
 
 
+
 import {Route, BrowserRouter as Router} from "react-router-dom"
 
 export default function AppRoute(){
@@ -25,6 +26,7 @@ export default function AppRoute(){
         <Route path="/frisorer" component={Hairdressers} />
         <Route path="/logga-in" component={SignIn} />
         <Route path="/skapa-konto" component={SignUp} />
+    
         <Footer />
         </Router>
 

@@ -1,19 +1,30 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Card from "./Card.js"
+import axios from "axios";
 
-const arrayOfStyling = [
-    {treatmentName:"Fön", description:"Fön med styling", treatmentPrice:"500 Kr"} ,
-    {treatmentName:"Fön och tvätt", description:"För, tvätt och styling", treatmentPrice:"600 Kr"}
-]
 
 function Styling() {
+
+const [styling, setStyling] = useState([]);
+
+useEffect(()=>{
+
+  const fetchStyling = async ()=>{
+   const response = await axios.get("http://localhost:1337/stylings")
+
+    setStyling(response.data)
+  }
+fetchStyling()
+
+}, [])
+
     return (
         <div className="flex flex-col">
   <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 pt-6 pb-20">
-    <div className="py-2 align-middle inline-block w-8/12  sm:px-6 lg:px-8">
+    <div className="py-2 align-middle inline-block min-width-full  sm:px-6 lg:px-8">
       <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+          <thead className="bg-purple-100">
             <tr>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Styling
@@ -30,9 +41,9 @@ function Styling() {
             </tr>
           </thead>
 
-          {arrayOfStyling.map((treatment)=>{
+          {styling.map((stylings)=>{
                  return (
-<Card key={Math.random()} treatmentName={treatment.treatmentName} description={treatment.description} treatmentPrice={treatment.treatmentPrice}/>
+<Card key={stylings.id} treatmentName={stylings.name} description={stylings.description} treatmentPrice={stylings.price}/>
              )
             }) }
 </table>

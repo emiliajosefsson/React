@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
+import {Link} from "react-router-dom";
+
 
 function Footer() {
     return (
         
-<footer className="flex justify-center px-4 text-gray-100 bg-pink-800 dark:text-white dark:bg-gray-800">
+<footer className="flex justify-center px-4 text-gray-100 bg-gradient-to-r from-pink-900 via-pink-650 to-pink-700 dark:text-white dark:bg-gray-800">
         <div className="container py-6">
             <h1 className="text-lg font-bold text-center lg:text-2xl">
                 Följs oss för exklusiva erbjudanden och nyheter
@@ -22,7 +24,7 @@ function Footer() {
 
             <div className="flex flex-col items-center justify-between mt-6 md:flex-row">
                 <div>
-                    <a href="#" className="text-xl font-bold text-gray-800 dark:text-white hover:text-gray-700 dark:hover:text-gray-300">Frisör.se</a>
+                <Link to="/" className="text-xl font-bold text-white dark:text-white hover:text-gray-700 dark:hover:text-gray-300">Frisör.se</Link>
                 </div>
 
                 <div className="flex mt-4 md:m-0">
