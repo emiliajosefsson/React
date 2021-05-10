@@ -7,6 +7,9 @@ import SignUp from "./SignUp.js";
 import LandingPage from "./LandingPage"
 import Hairdressers from "./Hairdressers.js"
 import Footer from "./Footer.js";
+import ResetPassword from "./ResetPassword"
+import ForgotPassword from "./ForgotPassword"
+import UserBookings from "./UserBookings";
 
 
 
@@ -26,6 +29,9 @@ export default function AppRoute(){
         <Route path="/frisorer" component={Hairdressers} />
         <Route path="/logga-in" component={SignIn} />
         <Route path="/skapa-konto" component={SignUp} />
+        <Route path="/aterstall-losenord" component={ResetPassword} />
+        <Route path="/glomt-losenord" component={ForgotPassword} />
+        <Route path="/mina-bokningar" component={UserBookings} />
     
         <Footer />
         </Router>

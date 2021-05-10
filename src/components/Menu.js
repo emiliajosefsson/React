@@ -1,10 +1,25 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {Link, useHistory} from "react-router-dom";
 
  
 
 function Menu(){
 
+  const [jwt, setJwt] = useState(null);
+  const history= useHistory();
+
+
+  useEffect(()=>{
+    const JWT = localStorage.getItem("jwt")
+    setJwt(JWT)  
+
+},  [])
+
+function signOut() {
+localStorage.clear();
+history.push("/")
+window.location.reload();
+ }
 
 return(
   <>
@@ -29,6 +44,15 @@ return(
     </div>
         </div>
       </div>
+  {jwt ?  <div className="absolute flex items-center justify-items-end pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden sm:block">
+        <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/mina-bokningar">Mina bokningar</Link>
+        <button className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onClick={signOut}>Logga ut</button>
+    <div>
+
+    </div>
+
+</div> : 
+     
       <div className="absolute flex items-center justify-items-end pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden sm:block">
         <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/skapa-konto">Skapa konto</Link>
         <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/logga-in">Logga in</Link>
@@ -37,6 +61,7 @@ return(
           </div>
 
         </div>
+        }
       </div>
     </div>
 <div className="sm:hidden text-gray-300" id="mobile-menu">

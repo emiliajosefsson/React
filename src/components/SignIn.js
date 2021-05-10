@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import {Link} from "react-router-dom";
+import React, {useState, useEffect} from 'react'
+import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
 
 function SignIn() {
@@ -10,8 +10,9 @@ function SignIn() {
         }  
         
         const [signInValues, setSignInValues] = useState(initialValue);
-        const [authenticated, setAuthenticated] = useState(false);
-        const [error, setError]= useState("")
+        const [error, setError]= useState("");
+        const [jwt, setJwt] = useState("");
+        const history= useHistory();
         
         function onHandleChange(e){
 
@@ -22,37 +23,46 @@ function SignIn() {
               })
               }
 
+            useEffect(()=>{
+     
+            const JWT = localStorage.getItem("jwt")
+            setJwt(JWT);
+             
+             
+               }, [])
 
         function onHandleSubmit(e){
         e.preventDefault();
         
-        axios.post('http://localhost:1337/auth/local', {
+        axios
+        .post('http://localhost:1337/auth/local', {
           identifier: signInValues.email,
           password: signInValues.password,
         })
 
         .then(response => {
-          // Handle success.
           console.log('User profile', response.data.user);
           console.log('User token', response.data.jwt);
-          setAuthenticated(true);
+          localStorage.setItem("jwt", response.data.jwt);
+          history.push("/behandlingar")
+          window.location.reload();
         })
         
-        .catch( (err)=>{
-          console.log(err); 
-        
-        setError(err.response.message[0].messages[0].message)
+        .catch( ( )=>{
+          
+       setError("Invalid usernamer or password");
+  
        })
       }
 
     return (
       <>
-      {authenticated ? <div>Välkommen</div> :
        <form onSubmit={onHandleSubmit}>
         <div className="min-h-screen flex items-center justify-center bg-white py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
             
                 <h2 className="text-center text-3xl font-extrabold text-pink-700">Logga in</h2>
+                <h2 className="text-black">{error}</h2>
                 <input type="hidden" name="remember" value="true"/>
       <div className="rounded-md shadow-sm -space-y-px">
         <div>
@@ -66,18 +76,17 @@ function SignIn() {
             </div>
             
             <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-pink-700 hover:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-900">Logga in</button>
-            <h2 className="text-red-900">{error}</h2>
             
             <div className="text-sm">
           <Link className="font-medium text-pink-500 hover:text-pink-700" to="/skapa-konto">
-            Har du inte redan ett konto?
+            Har du inget konto än?
             </Link>
         </div>
        
         </div>
         </div>
         </form>
-        }
+        
         </>
     )
 }
