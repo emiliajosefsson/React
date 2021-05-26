@@ -2,6 +2,7 @@ import React , {useState, useEffect} from 'react'
 import Card from "./Card.js"
 import axios from "axios";
 
+
 function Haircuts() {
 
     const [haircuts, setHaircuts] = useState([]);
@@ -9,7 +10,7 @@ function Haircuts() {
     useEffect(()=>{
     
       const fetchHaircuts = async ()=>{
-       const response = await axios.get("http://localhost:1337/haircuts")
+       const response = await axios.get("http://localhost:1337/treatments?type=haircut")
     
         setHaircuts(response.data)
       }
@@ -42,7 +43,7 @@ function Haircuts() {
 
           {haircuts.map((haircuts)=>{
                  return (
-<Card key={haircuts.id} treatmentName={haircuts.name} description={haircuts.description} treatmentPrice={haircuts.price}/>
+<Card key={haircuts.id} treatment_id={haircuts.id} treatmentName={haircuts.name} description={haircuts.description} treatmentPrice={haircuts.price}/>
              )
             }) }
 </table>

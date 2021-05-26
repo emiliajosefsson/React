@@ -10,6 +10,7 @@ import Footer from "./Footer.js";
 import ResetPassword from "./ResetPassword"
 import ForgotPassword from "./ForgotPassword"
 import UserBookings from "./UserBookings";
+import FormHairdressers from "./FormHairdressers";
 
 
 
@@ -32,6 +33,7 @@ export default function AppRoute(){
         <Route path="/aterstall-losenord" component={ResetPassword} />
         <Route path="/glomt-losenord" component={ForgotPassword} />
         <Route path="/mina-bokningar" component={UserBookings} />
+        <Route path="/ny-frisor" component={FormHairdressers} />
     
         <Footer />
         </Router>

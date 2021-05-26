@@ -6,29 +6,36 @@ function Form(){
     const initialValue = {
     treatmentName: " ",
     treatmentPrice:" ",
-    description: " "
+    description: " ",
+    type: "styling"
     }  
     
     const [formValues, setFormValues] = useState(initialValue)
-    const [formType, setFormType] = useState("stylings")
+    // const [formType, setFormType] = useState("stylings")
     
     function onHandleSubmit(e){
     e.preventDefault();
-
+      
     
-      axios.post(`http://localhost:1337/${formType}`, {
+      axios.post(`http://localhost:1337/treatments`, {
 
       name: formValues.treatmentName,
       description: formValues.description,
       price: formValues.treatmentPrice,
+      type: formValues.type,
      }).then ( (e) => {console.log(e.data)})
 
 
     }
+
+    // function onHandleChangeType(e){
+    //   setFormType(e.target.value)
+
+    // }
     
     function onHandleChange(e){
-    setFormType(e.target.value)
-
+    
+      
     setFormValues( {
         ...formValues,
         [e.target.name]:e.target.value
@@ -51,10 +58,10 @@ function Form(){
           <label htmlFor="treatmentPrice" className="block text-sm font-medium text-gray-700 m-2">
                 Behandlingstyp
               </label>
-              <select name="treatmentType" className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm">
-              <option value="stylings" onChange={onHandleChange}>Styling</option>
-              <option value="haircuts" onChange={onHandleChange}>Klippning</option>
-              <option value="highlights" onChange={onHandleChange}>Slingor</option>
+              <select name="type" value={formValues.type}  onChange={onHandleChange} className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm">
+              <option value="styling" >Styling</option>
+              <option value="haircut" >Klippning</option>
+              <option value="highlights" >Slingor</option>
               </select>
           </div>
           <div className="rounded-md shadow-sm -space-y-px">

@@ -1,7 +1,7 @@
-import React  , {useState} from "react";
+import React from "react";
 import BookingModal from "../BookingModal";
 
-function Card({treatmentName, description, treatmentPrice}){
+function Card({treatment_id, treatmentName, description, treatmentPrice}){
 
     return(
 
@@ -21,7 +21,7 @@ function Card({treatmentName, description, treatmentPrice}){
                 <div className="text-sm text-gray-900">{treatmentPrice}</div>
               </td>
               
-              <BookingModal />
+              <BookingModal treatment_id={treatment_id}/>
             </tr>
           </tbody>
 

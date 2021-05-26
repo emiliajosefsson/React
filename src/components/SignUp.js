@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Link} from "react-router-dom";
 import axios from "axios";
-import {useHistory} from "react-router-dom"
+
 
 function SignUp() {
 
@@ -14,7 +14,6 @@ function SignUp() {
     
     const [signUpValues, setSignUpValues] = useState(initialValue)
     const [error, setError]= useState("")
-    const history = useHistory();
 
     function onHandleChange(e){
 
@@ -37,7 +36,6 @@ function SignUp() {
          })
     .then ( (e) => {console.log(e.data)})
 
-    // .catch((err)=> {console.log(err.response)})
     .catch((err)=> {setError(err.response.data.message[0].messages[0].message)})
     }
     

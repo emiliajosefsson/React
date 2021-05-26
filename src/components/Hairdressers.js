@@ -5,17 +5,30 @@ import axios from "axios";
 export default function Hairdressers() {
 
     const [hairdressers, setHairdressers] = useState([]);
+    const [loadPage, setLoadPage] = useState(2);
 
     useEffect(()=>{
     
       const fetchHairdressers = async ()=>{
-       const response = await axios.get("http://localhost:1337/hairdressers")
-        console.log(response)
+       const response = await axios.get(`http://localhost:1337/hairdressers?_limit=${loadPage}`)
         setHairdressers(response.data)
       }
     fetchHairdressers()
-    
-    }, [])
+    console.log(loadPage)
+    }, [loadPage])
+
+function loadMore(){
+let pagination = loadPage + 2;
+
+setLoadPage(pagination)
+console.log(pagination)
+
+}
+
+function loadLess(){
+    setLoadPage(2)
+
+}
 
 
     return (
@@ -31,6 +44,11 @@ export default function Hairdressers() {
             )
         }) }
        </div>
+        {(hairdressers.length === loadPage) ?
+       <button onClick={loadMore} className="mb-3 p-1 rounded-md text-white bg-pink-700 hover:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-900">Load More</button>
+            :
+            <button onClick={loadLess}className="mb-3 p-1 rounded-md text-white bg-pink-700 hover:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-900">Show less</button>
+    }
         </div>
         </>
     )

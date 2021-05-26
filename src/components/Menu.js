@@ -6,14 +6,20 @@ import {Link, useHistory} from "react-router-dom";
 function Menu(){
 
   const [jwt, setJwt] = useState(null);
+  const [admin, setAdmin] = useState(false);
+  
   const history= useHistory();
 
 
-  useEffect(()=>{
+useEffect(()=>{
     const JWT = localStorage.getItem("jwt")
     setJwt(JWT)  
 
+    const admin = localStorage.getItem("userAdmin")
+    setAdmin(admin)  
+
 },  [])
+
 
 function signOut() {
 localStorage.clear();
@@ -39,9 +45,14 @@ return(
     <div className="absolute  flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden sm:block">
           <div className="flex space-x-4">
             <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/behandlingar">Behandlingar</Link>
-            <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/form">Admin</Link>
             <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/frisorer">Frisörer</Link>
-    </div>
+            {admin === "true" && 
+            <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/form">Ny behandling</Link>
+          }
+          {admin === "true" && 
+            <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/ny-frisor">Ny frisör</Link>
+}
+            </div>
         </div>
       </div>
   {jwt ?  <div className="absolute flex items-center justify-items-end pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden sm:block">
@@ -68,11 +79,28 @@ return(
     <div className="px-2 pt-2 pb-3 space-y-1">
     
 <Link className="bg-gray-900 text-white block px-3 py-2 hover:bg-gray-800 rounded-md text-base font-medium" aria-current="page" to="/">Behandlingar</Link>
-<Link className="bg-gray-900 text-white block px-3 py-2 hover:bg-gray-800 rounded-md text-base font-medium" aria-current="page" to="/form">Admin</Link>
+{admin === "true" && 
+<Link className="bg-gray-900 text-white block px-3 py-2 hover:bg-gray-800 rounded-md text-base font-medium" aria-current="page" to="/form">Ny behandling</Link>
+} {admin === "true" && 
+<Link className="bg-gray-900 text-white block px-3 py-2 hover:bg-gray-800 rounded-md text-base font-medium" aria-current="page" to="/ny-frisor">Ny frisör</Link>
+}
 <Link className="bg-gray-900 text-white block px-3 py-2 hover:bg-gray-800 rounded-md text-base font-medium" aria-current="page" to="/frisorer">Frisörer</Link>
+
+{jwt ? 
+<div className="pb-3 space-y-1 ">
+<Link className="bg-gray-900 text-white block px-3 py-2 hover:bg-gray-800 rounded-md text-base font-medium" aria-current="page" to="/mina-bokningar">Mina bokningar</Link>
+<button className="bg-gray-900 text-white block px-3 py-2 hover:bg-gray-800 rounded-md text-base font-medium w-full" aria-current="page" onClick={signOut}>Logga ut</button>
+
+</div>
+:
+<div className="pb-3 space-y-1 ">
 <Link className="bg-gray-900 text-white block px-3 py-2 hover:bg-gray-800 rounded-md text-base font-medium" aria-current="page" to="/skapa-konto">Skapa konto</Link>
 <Link className="bg-gray-900 text-white block px-3 py-2 hover:bg-gray-800 rounded-md text-base font-medium" aria-current="page" to="/logga-in">Logga in</Link>
 </div>
+}
+
+</div>
+
 </div>
 </nav>
 </>

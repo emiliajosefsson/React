@@ -12,6 +12,7 @@ function SignIn() {
         const [signInValues, setSignInValues] = useState(initialValue);
         const [error, setError]= useState("");
         const [jwt, setJwt] = useState("");
+        const [admin, setAdmin] = useState(false);
         const history= useHistory();
         
         function onHandleChange(e){
@@ -27,6 +28,9 @@ function SignIn() {
      
             const JWT = localStorage.getItem("jwt")
             setJwt(JWT);
+
+            const admin = localStorage.getItem("userAdmin")
+            setAdmin(admin);
              
              
                }, [])
@@ -44,6 +48,8 @@ function SignIn() {
           console.log('User profile', response.data.user);
           console.log('User token', response.data.jwt);
           localStorage.setItem("jwt", response.data.jwt);
+          localStorage.setItem("userInfo", response.data.user.id);
+          localStorage.setItem("userAdmin", response.data.user.admin);
           history.push("/behandlingar")
           window.location.reload();
         })

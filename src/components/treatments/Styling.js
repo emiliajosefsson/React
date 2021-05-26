@@ -10,7 +10,7 @@ const [styling, setStyling] = useState([]);
 useEffect(()=>{
 
   const fetchStyling = async ()=>{
-   const response = await axios.get("http://localhost:1337/stylings")
+   const response = await axios.get("http://localhost:1337/treatments?type=styling")
 
     setStyling(response.data)
   }
@@ -43,7 +43,7 @@ fetchStyling()
 
           {styling.map((stylings)=>{
                  return (
-<Card key={stylings.id} treatmentName={stylings.name} description={stylings.description} treatmentPrice={stylings.price}/>
+<Card key={stylings.id}  treatment_id={stylings.id}  treatmentName={stylings.name} description={stylings.description} treatmentPrice={stylings.price} />
              )
             }) }
 </table>

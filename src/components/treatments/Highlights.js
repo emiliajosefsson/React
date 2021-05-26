@@ -9,7 +9,7 @@ function Highlights() {
   useEffect(()=>{
   
     const fetchHighlights = async ()=>{
-     const response = await axios.get("http://localhost:1337/highlights")
+     const response = await axios.get("http://localhost:1337/treatments?type=highlights")
   
       setHighlights(response.data)
     }
@@ -43,7 +43,7 @@ function Highlights() {
 
           {highlights.map((highlights)=>{
                  return (
-<Card key={highlights.id} treatmentName={highlights.name} description={highlights.description} treatmentPrice={highlights.price}/>
+<Card key={highlights.id} treatment_id={highlights.id} treatmentName={highlights.name} description={highlights.description} treatmentPrice={highlights.price}/>
              )
             }) }
 </table>
