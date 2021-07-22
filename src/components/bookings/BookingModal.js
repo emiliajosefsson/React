@@ -3,6 +3,7 @@ import {useHistory} from "react-router-dom";
 import Modal from 'react-modal';
 import axios from "axios";
 
+
 function BookingModal({treatment_id}) {
 
 
@@ -59,6 +60,8 @@ function BookingModal({treatment_id}) {
      
      history.push("/mina-bokningar")
      window.location.reload()
+
+
     }
     
     function onHandleChange(e){
@@ -136,7 +139,7 @@ function BookingModal({treatment_id}) {
           </div>
             
             
-            <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-pink-700 hover:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-900 mt-3" >Boka</button>
+            <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-pink-700 hover:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-900 mt-3" role="link" >Boka behandling</button>
             </form>
         </div>
         </div>

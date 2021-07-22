@@ -1,5 +1,5 @@
 import React from "react";
-import BookingModal from "../BookingModal";
+import BookingModal from "../bookings/BookingModal";
 
 function Card({treatment_id, treatmentName, description, treatmentPrice}){
 

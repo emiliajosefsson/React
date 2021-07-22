@@ -7,9 +7,11 @@ function SignUp() {
 
 
   const initialValue = {
-    email:" ",
-    username: " ",
-    password:""
+    email:"",
+    username: "",
+    password:"",
+    name:"",
+    birthday:""
     }  
     
     const [signUpValues, setSignUpValues] = useState(initialValue)
@@ -33,6 +35,9 @@ function SignUp() {
           email: signUpValues.email,
           password: signUpValues.password,
           username: signUpValues.username,
+          birthday: signUpValues.birthday,
+          name: signUpValues.name
+
          })
     .then ( (e) => {console.log(e.data)})
 
@@ -52,10 +57,22 @@ function SignUp() {
           <input value={signUpValues.email} onChange={onHandleChange}  name="email" type="email" autoComplete="email"  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm" placeholder="Mejladress"/>
         </div>
         <div>
-          <label htmlFor="username" className="sr-only">Användarnamn</label>
-          <input value={signUpValues.username} onChange={onHandleChange} name="username" type="text"  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm" placeholder="Användarnamn"/>
+          <label htmlFor="name" className="sr-only">Namn</label>
+          <input value={signUpValues.name} onChange={onHandleChange} name="name" type="text"  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm" placeholder="Namn"/>
         </div>
-            
+        <div>
+          <label htmlFor="username" className="sr-only">Användarnamn</label>
+          <input value={signUpValues.username} 
+          onChange={onHandleChange} 
+          name="username" 
+          type="text"  
+          className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm" 
+          placeholder="Användarnamn"/>
+        </div>
+        <div>
+          <label htmlFor="birthday" className="sr-only">Födelsedag</label>
+          <input value={signUpValues.birthday} onChange={onHandleChange} name="birthday" type="date"  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm" placeholder="Födelsedag"/>
+        </div>
         <div>
           <label htmlFor="password" className="sr-only">Lösenord</label>
           <input value={signUpValues.password} onChange={onHandleChange} name="password" type="password" autoComplete="current-password" className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 rounded-b-md placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm" placeholder="Lösenord"/>

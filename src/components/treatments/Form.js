@@ -11,7 +11,8 @@ function Form(){
     }  
     
     const [formValues, setFormValues] = useState(initialValue)
-    // const [formType, setFormType] = useState("stylings")
+    const [token, setToken] = useState(localStorage.getItem("jwt"))
+    
     
     function onHandleSubmit(e){
     e.preventDefault();
@@ -23,7 +24,12 @@ function Form(){
       description: formValues.description,
       price: formValues.treatmentPrice,
       type: formValues.type,
-     }).then ( (e) => {console.log(e.data)})
+     },
+     {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+  }).then ( (e) => {console.log(e.data)})
 
 
     }

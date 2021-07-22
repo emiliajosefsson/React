@@ -1,16 +1,17 @@
 import React from "react";
 import Treatments from "./treatments/Treatments.js"
-import Form from "./Form.js";
+import Form from "./treatments/Form.js";
 import Menu from "./Menu.js";
 import SignIn from "./SignIn.js";
 import SignUp from "./SignUp.js";
 import LandingPage from "./LandingPage"
-import Hairdressers from "./Hairdressers.js"
+import Hairdressers from "./hairdressers/Hairdressers.js"
 import Footer from "./Footer.js";
 import ResetPassword from "./ResetPassword"
 import ForgotPassword from "./ForgotPassword"
-import UserBookings from "./UserBookings";
-import FormHairdressers from "./FormHairdressers";
+import UserBookings from "./bookings/UserBookings";
+import FormHairdressers from "./hairdressers/FormHairdressers";
+import Contact from "./Contact.js";
 
 
 
@@ -34,6 +35,7 @@ export default function AppRoute(){
         <Route path="/glomt-losenord" component={ForgotPassword} />
         <Route path="/mina-bokningar" component={UserBookings} />
         <Route path="/ny-frisor" component={FormHairdressers} />
+        <Route path="/kontakt" component={Contact} />
     
         <Footer />
         </Router>

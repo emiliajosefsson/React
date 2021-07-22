@@ -11,6 +11,8 @@ function FormHairdressers() {
         
         const [formValues, setFormValues] = useState(initialValue)
         const [fileData, setFileData ]= useState();
+        const [token, setToken] = useState(localStorage.getItem("jwt"))
+
         
         function onHandleSubmit(e){
         e.preventDefault();
@@ -21,7 +23,12 @@ function FormHairdressers() {
           name: formValues.firstname,
           specialty: formValues.specialty,
           years: formValues.years,
-         }).then ( (e) => {console.log(e.data)
+         },
+         {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+      }).then ( (e) => {console.log(e.data)
     
 
          const data = new FormData();

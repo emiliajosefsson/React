@@ -44,7 +44,7 @@ function loadLess(){
             )
         }) }
        </div>
-        {(hairdressers.length === loadPage) ?
+        {(hairdressers.length >= loadPage) ?
        <button onClick={loadMore} className="mb-3 p-1 rounded-md text-white bg-pink-700 hover:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-900">Load More</button>
             :
             <button onClick={loadLess}className="mb-3 p-1 rounded-md text-white bg-pink-700 hover:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-900">Show less</button>

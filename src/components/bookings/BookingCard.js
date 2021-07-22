@@ -1,8 +1,11 @@
 import React from 'react'
 import axios from "axios";
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe('pk_test_51Ix6UkLlsbnoKYkou3sIOkAgpOzAHmmlLepKXmdcWiTRVnybJPLsfBnpiknAswlaPsTc3Qg1TsF6w2y3XHGLvMMy00686h76f1');
 
 
-function BookingCard({firstname, time, phone, hairdresser, id, treatmentName, treatmentDescription}) {
+function BookingCard({firstname, time, phone, price,  hairdresser, id, treatmentName, treatmentDescription}) {
 
   
     function deleteBooking(){
@@ -11,6 +14,38 @@ function BookingCard({firstname, time, phone, hairdresser, id, treatmentName, tr
         window.location.reload()
     
     }
+
+
+
+    const handleClick = async (event) => {
+      //   // Get Stripe.js instance
+       const stripe = await stripePromise;
+    
+        // Call your backend to create the Checkout Session
+        
+       const response = await axios.post("http://localhost:4242/create-checkout-session", {name:treatmentName, price:price})
+    
+    
+        const sessionId = response.data.id
+    
+      //   // When the customer clicks on the button, redirect them to Checkout.
+      const result = await stripe.redirectToCheckout({
+          sessionId: sessionId,
+       });
+    
+       if (result.error) {
+      //     // If `redirectToCheckout` fails due to a browser or network
+      //     // error, display the localized error message to your customer
+      //     // using `result.error.message`.
+       }
+      };
+
+
+
+
+
+
+
 
 
     return (
@@ -25,10 +60,10 @@ function BookingCard({firstname, time, phone, hairdresser, id, treatmentName, tr
     <dl>
       <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt className="text-sm font-medium text-gray-500">
-          Förnamn
+          Frisör
         </dt>
         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          {firstname}
+          {hairdresser}
         </dd>
       </div>
       <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -49,10 +84,10 @@ function BookingCard({firstname, time, phone, hairdresser, id, treatmentName, tr
       </div>
       <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt className="text-sm font-medium text-gray-500">
-          Frisör
+          Pris
         </dt>
         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          {hairdresser}
+          {price} SEK
         </dd>
       </div>
       <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -63,7 +98,8 @@ function BookingCard({firstname, time, phone, hairdresser, id, treatmentName, tr
         {treatmentDescription}
         </dd>
       </div>
-      <div className="flex justify-center items-center text-indigo-600 hover:text-indigo-900 p-4" onClick={deleteBooking}>Avboka</div>
+      <div className="flex justify-center items-center text-indigo-600 hover:text-indigo-900 p-4" onClick={handleClick}><button>Betala</button></div>
+      <div className="flex justify-center items-center text-sm text-indigo-600 hover:text-indigo-900 p-4" onClick={deleteBooking}><button>Avboka</button></div>
     </dl>
   </div>
 </div>

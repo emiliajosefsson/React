@@ -30,7 +30,7 @@ function Footer() {
                 <div className="flex mt-4 md:m-0">
                     <div className="-mx-4">
                         <span className="px-4 text-sm font-medium text-gray-800 dark:text-gray-200">+46 7000000</span>
-                        <span className="px-4 text-sm font-medium text-gray-800 dark:text-gray-200">frisör@frisör.se</span>
+                        <span className="px-4 text-sm font-medium text-gray-800 dark:text-gray-200"><Link to="/kontakt">Kontaktformulär</Link></span>
 
                     </div>
                 </div>
