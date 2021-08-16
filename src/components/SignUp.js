@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
 
 
@@ -17,6 +17,8 @@ function SignUp() {
     const [signUpValues, setSignUpValues] = useState(initialValue)
     const [error, setError]= useState("")
 
+  const history= useHistory();
+
     function onHandleChange(e){
 
       setSignUpValues( {
@@ -25,7 +27,7 @@ function SignUp() {
              
           })
           }
-
+    
     
     function onHandleSubmit(e){
     e.preventDefault();
@@ -39,7 +41,7 @@ function SignUp() {
           name: signUpValues.name
 
          })
-    .then ( (e) => {console.log(e.data)})
+    .then ( history.push("/logga-in"))
 
     .catch((err)=> {setError(err.response.data.message[0].messages[0].message)})
     }
@@ -85,6 +87,7 @@ function SignUp() {
           <Link className="font-medium text-pink-500 hover:text-pink-700" to="/logga-in">
             Har du redan ett konto?
             </Link>
+            
         </div>
         
         </div>

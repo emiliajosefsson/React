@@ -1,13 +1,17 @@
 import React, {useState, useEffect} from "react";
 import {Link, useHistory} from "react-router-dom";
+// import Facebook from "./Facebook"
 
- 
+require('dotenv').config();
+
 
 function Menu(){
 
   const [jwt, setJwt] = useState(null);
   const [admin, setAdmin] = useState(false);
-  
+  const [login, setLogin] = useState(true);
+  const ID = process.env.REACT_APP_FACEBOOK_APP_ID
+
   const history= useHistory();
 
 
@@ -21,11 +25,16 @@ useEffect(()=>{
 },  [])
 
 
-function signOut() {
-localStorage.clear();
+
+function signOut(e) {
+  e.preventDefault()
+  localStorage.clear();
+// window.FB.logout()
+setLogin(false)
 history.push("/")
 window.location.reload();
  }
+
 
 return(
   <>
@@ -56,6 +65,7 @@ return(
         </div>
       </div>
   {jwt ?  <div className="absolute flex items-center justify-items-end pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden sm:block">
+    
         <Link className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/mina-bokningar">Mina bokningar</Link>
         <button className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onClick={signOut}>Logga ut</button>
     <div>
@@ -87,7 +97,9 @@ return(
 <Link className="bg-gray-900 text-white block px-3 py-2 hover:bg-gray-800 rounded-md text-base font-medium" aria-current="page" to="/frisorer">Frisörer</Link>
 
 {jwt ? 
+  
 <div className="pb-3 space-y-1 ">
+{/* <div><Facebook/></div> */}
 <Link className="bg-gray-900 text-white block px-3 py-2 hover:bg-gray-800 rounded-md text-base font-medium" aria-current="page" to="/mina-bokningar">Mina bokningar</Link>
 <button className="bg-gray-900 text-white block px-3 py-2 hover:bg-gray-800 rounded-md text-base font-medium w-full" aria-current="page" onClick={signOut}>Logga ut</button>
 

@@ -12,6 +12,7 @@ import ForgotPassword from "./ForgotPassword"
 import UserBookings from "./bookings/UserBookings";
 import FormHairdressers from "./hairdressers/FormHairdressers";
 import Contact from "./Contact.js";
+import Facebook from "./Facebook";
 
 
 
@@ -36,6 +37,7 @@ export default function AppRoute(){
         <Route path="/mina-bokningar" component={UserBookings} />
         <Route path="/ny-frisor" component={FormHairdressers} />
         <Route path="/kontakt" component={Contact} />
+        <Route path="/facebook" component={Facebook} /> 
     
         <Footer />
         </Router>

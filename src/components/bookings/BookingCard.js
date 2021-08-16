@@ -1,16 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import axios from "axios";
 import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe('pk_test_51Ix6UkLlsbnoKYkou3sIOkAgpOzAHmmlLepKXmdcWiTRVnybJPLsfBnpiknAswlaPsTc3Qg1TsF6w2y3XHGLvMMy00686h76f1');
 
-
 function BookingCard({firstname, time, phone, price,  hairdresser, id, treatmentName, treatmentDescription}) {
+  const [token, setToken] = useState(localStorage.getItem("jwt"))
 
   
     function deleteBooking(){
 
-        axios.delete(`http://localhost:1337/bookings/${id}`)
+        axios.delete(`http://localhost:1337/bookings/${id}`,
+        {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+        })
         window.location.reload()
     
     }
@@ -18,34 +23,22 @@ function BookingCard({firstname, time, phone, price,  hairdresser, id, treatment
 
 
     const handleClick = async (event) => {
-      //   // Get Stripe.js instance
        const stripe = await stripePromise;
     
-        // Call your backend to create the Checkout Session
         
        const response = await axios.post("http://localhost:4242/create-checkout-session", {name:treatmentName, price:price})
     
     
         const sessionId = response.data.id
     
-      //   // When the customer clicks on the button, redirect them to Checkout.
       const result = await stripe.redirectToCheckout({
           sessionId: sessionId,
        });
     
        if (result.error) {
-      //     // If `redirectToCheckout` fails due to a browser or network
-      //     // error, display the localized error message to your customer
-      //     // using `result.error.message`.
+      
        }
       };
-
-
-
-
-
-
-
 
 
     return (

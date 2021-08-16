@@ -12,7 +12,7 @@ function SignIn() {
         const [signInValues, setSignInValues] = useState(initialValue);
         const [error, setError]= useState("");
         const [jwt, setJwt] = useState("");
-        const [admin, setAdmin] = useState(false);
+        // const [admin, setAdmin] = useState(false);
         const history= useHistory();
         
         function onHandleChange(e){
@@ -29,8 +29,8 @@ function SignIn() {
             const JWT = localStorage.getItem("jwt")
             setJwt(JWT);
 
-            const admin = localStorage.getItem("userAdmin")
-            setAdmin(admin);
+            // const admin = localStorage.getItem("userAdmin")
+            // setAdmin(admin);
              
              
                }, [])
@@ -49,7 +49,11 @@ function SignIn() {
           console.log('User token', response.data.jwt);
           localStorage.setItem("jwt", response.data.jwt);
           localStorage.setItem("userInfo", response.data.user.id);
-          localStorage.setItem("userAdmin", response.data.user.admin);
+          const admin = response.data.user.admin
+                if(admin===true) {
+                    localStorage.setItem("userAdmin", admin)
+                }
+          // localStorage.setItem("userAdmin", response.data.user.admin);
           history.push("/behandlingar")
           window.location.reload();
         })
@@ -88,7 +92,9 @@ function SignIn() {
             Har du inget konto än?
             </Link>
         </div>
-       
+        <Link className="font-medium text-pink-500 hover:text-pink-700" to="/facebook">
+            Logga in via Facebook?
+            </Link>
         </div>
         </div>
         </form>

@@ -32,6 +32,7 @@ function BookingModal({treatment_id}) {
   const [formValues, setFormValues] = useState(initialValue)
   const [userId, setUserId] = useState()
   const [jwt, setJwt] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("jwt"))
 
   useEffect(()=>{
     const userId = localStorage.getItem("userInfo")
@@ -56,10 +57,15 @@ function BookingModal({treatment_id}) {
       hairdresser: formValues.hairdresser,
       users_id: userId,
       treatment_id: treatment_id,
+     },
+     {
+         headers: {
+           Authorization: `Bearer ${token}`,
+         }
      }).then ( (e) => {console.log(e.data)})
      
-     history.push("/mina-bokningar")
-     window.location.reload()
+    history.push("/mina-bokningar")
+    window.location.reload()
 
 
     }
