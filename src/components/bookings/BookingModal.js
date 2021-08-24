@@ -31,13 +31,17 @@ function BookingModal({treatment_id}) {
   const [modalOpen, setModalOpen] = useState(false)
   const [formValues, setFormValues] = useState(initialValue)
   const [userId, setUserId] = useState()
+  const [userFb, setUserFb] = useState()
   const [jwt, setJwt] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("jwt"))
+  const [fbId, setFbId] = useState()
 
   useEffect(()=>{
     const userId = localStorage.getItem("userInfo")
-    setUserId(userId)  
-  
+    setUserId(userId) 
+    
+    const fbId = localStorage.getItem("fbId")
+    setFbId(fbId) 
 
     const JWT = localStorage.getItem("jwt")
     setJwt(JWT)  
@@ -46,9 +50,13 @@ function BookingModal({treatment_id}) {
 
 
   function onHandleSubmit(e){
+
+    const userFb = localStorage.getItem("userFb")
+    setUserFb(userFb) 
+
     e.preventDefault();
 
-    
+    if(userId!="facebook"){
       axios.post('http://localhost:1337/bookings', {
 
       firstname: formValues.firstname,
@@ -68,7 +76,22 @@ function BookingModal({treatment_id}) {
     window.location.reload()
 
 
+    }else{ axios.post('http://localhost:1337/open-auth-bookings', {
+
+      firstname: formValues.firstname,
+      phone: formValues.phone,
+      time: formValues.time,
+      hairdresser: formValues.hairdresser,
+      users_id: fbId,
+      treatment_id: treatment_id,
     }
+    
+    ).then ( (e) => {console.log(e.userFb)})
+     
+    history.push("/mina-bokningar")
+    window.location.reload()
+  }
+  }
     
     function onHandleChange(e){
         

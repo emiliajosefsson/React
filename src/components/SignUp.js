@@ -29,6 +29,10 @@ function SignUp() {
           }
     
     
+          function typeChange(e) {
+            e.currentTarget.type = "date";
+        }
+        
     function onHandleSubmit(e){
     e.preventDefault();
     axios
@@ -44,6 +48,7 @@ function SignUp() {
     .then ( history.push("/logga-in"))
 
     .catch((err)=> {setError(err.response.data.message[0].messages[0].message)})
+
     }
     
     return (
@@ -73,7 +78,7 @@ function SignUp() {
         </div>
         <div>
           <label htmlFor="birthday" className="sr-only">Födelsedag</label>
-          <input value={signUpValues.birthday} onChange={onHandleChange} name="birthday" type="date"  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm" placeholder="Födelsedag"/>
+          <input value={signUpValues.birthday} onChange={onHandleChange} name="birthday" type="text"  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm" placeholder="Födelsedag" onFocus={typeChange}/>
         </div>
         <div>
           <label htmlFor="password" className="sr-only">Lösenord</label>

@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import emailjs from 'emailjs-com';
 
 require('dotenv').config();
 
 function Contact() {
 
+const [sent, setSent] = useState()
+
     function sendEmail(e) {
         e.preventDefault();
     
         emailjs.sendForm(process.env.REACT_APP_SERVICE_ID, process.env.REACT_APP_TEMPLATE_ID, e.target, process.env.REACT_APP_USER_ID)
           .then((result) => {
+           e.target.reset();
+            setSent("Tack för ditt meddelande");
               console.log(result.text);
           }, (error) => {
               console.log(error.text);
@@ -61,8 +65,10 @@ function Contact() {
         Skicka
       </button>
     </div>
+    
     <div className="md:w-2/3"></div>
   </div>
+  <p>{sent}</p>
 </form>
 </div>
         </>

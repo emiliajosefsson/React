@@ -34,6 +34,7 @@ function UserModal() {
   const [userId, setUserId] = useState()
   const [jwt, setJwt] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("jwt"))
+  
     
 
   useEffect(()=>{

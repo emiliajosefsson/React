@@ -11,9 +11,11 @@ function UserBookings() {
     const [userId, setUserId] = useState(localStorage.getItem("userInfo"))
     const history= useHistory();
     const [token, setToken] = useState(localStorage.getItem("jwt"))
+    const [fbId, setFbId] = useState(localStorage.getItem("fbId"))
+    const [message, setMessage] = useState("")
 
     function deleteUser(){
-
+      if(userId!=="facebook"){
       axios.delete(`http://localhost:1337/users/${userId}`,
       
       {
@@ -23,12 +25,12 @@ function UserBookings() {
     }).then(localStorage.clear());
     history.push("/logga-in")
     window.location.reload()
-  }
+     } }
 
   console.log(userId)
 
     useEffect(()=>{
-   
+      if(userId!=="facebook"){
       const fetchBookings = async ()=>{
        const response = await axios.get(`http://localhost:1337/bookings?users_id=${userId}`
        ,{
@@ -38,7 +40,10 @@ function UserBookings() {
     })
        
         setBookings(response.data)
-      }
+        if(!response.data[0]){
+          setMessage("Du har inga bokningar")
+        }
+       }
 
 
       const fetchUserInfo = async ()=>{
@@ -55,7 +60,19 @@ function UserBookings() {
      fetchUserInfo()
      
 
-    fetchBookings()
+    fetchBookings()}else{
+      const fetchOpenBookings = async ()=>{
+        const response = await axios.get(`http://localhost:1337/open-auth-bookings?users_id=${fbId}`
+        )
+    
+         setBookings(response.data)
+         if(!response.data[0]){
+           setMessage("Du har inga bokningar")
+         }
+        }
+        fetchOpenBookings()
+      
+    }
   
 
 
@@ -65,8 +82,11 @@ function UserBookings() {
 
     return (
       <>
+      {userId!=="facebook" ? 
       <div className="bg-white p-3 shadow-sm rounded-sm">
+      
                     <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
+                      
                         <span className="text-green-500">
                             <svg className="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -75,6 +95,7 @@ function UserBookings() {
                             </svg>
                         </span>
                         <span className="tracking-wide">About</span>
+                        
                     </div>
                     <div className="text-gray-700">
                         <div className="grid md:grid-cols-2 text-sm">
@@ -95,19 +116,25 @@ function UserBookings() {
                             <div className="grid grid-cols-2">
                                 <div className="px-4 py-2 font-semibold">Födelsedag</div>
                                 <div className="px-4 py-2">{userInfo.birthday}</div>
+                                
                             </div>
+                           
                         </div>
+                       
                     </div>
-                    
+  
                     <UserModal userId={userId}/>
                     <button
                         className="block w-full text-red-500 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4" onClick={deleteUser}>Ta bort </button>
-                </div>
+                       
+                        </div>
+                             : <></>} 
         <div>
             
             <div className="flex justify-center items-center">
     <h2 className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl mt-20">Mina bokningar</h2>
     </div>
+    <p>{message}</p>
             <div className="flex items-center justify-center justify-around flex-wrap p-10">
             {bookings.map((bookings)=>{
                  return (
@@ -116,6 +143,7 @@ function UserBookings() {
             }) }
         </div>
         </div>
+        
         </>
     )
 }

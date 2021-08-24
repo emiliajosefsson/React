@@ -4,12 +4,13 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe('pk_test_51Ix6UkLlsbnoKYkou3sIOkAgpOzAHmmlLepKXmdcWiTRVnybJPLsfBnpiknAswlaPsTc3Qg1TsF6w2y3XHGLvMMy00686h76f1');
 
-function BookingCard({firstname, time, phone, price,  hairdresser, id, treatmentName, treatmentDescription}) {
+function BookingCard({time, phone, price,  hairdresser, id, treatmentName, treatmentDescription}) {
   const [token, setToken] = useState(localStorage.getItem("jwt"))
+  const [userId, setUserId] = useState(localStorage.getItem("userInfo"))
 
   
     function deleteBooking(){
-
+      if(userId!=="facebook"){
         axios.delete(`http://localhost:1337/bookings/${id}`,
         {
             headers: {
@@ -17,7 +18,11 @@ function BookingCard({firstname, time, phone, price,  hairdresser, id, treatment
             }
         })
         window.location.reload()
-    
+      }
+      else{
+        axios.delete(`http://localhost:1337/open-auth-bookings/${id}`)
+        window.location.reload()
+      }
     }
 
 

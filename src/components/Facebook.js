@@ -23,26 +23,41 @@ window.location.reload()
 
 }
 
+
 const responseFacebook = (response) => {
  console.log(response);
      setData(response);
-    setPicture(response.picture.data.url);
      localStorage.setItem("jwt", response.accessToken);
+    localStorage.setItem("userFb", response.userID);
+    localStorage.setItem("userInfo", "facebook");
+
     
-        axios
-       .post('http://localhost:1337/auth/local/register', {
-            
-     email: "facebook@facebook.com",
-      password: response.id,
-      username: response.name,
-       name: response.name
+     axios.get(`http://localhost:1337/open-auths?userId=${response.userID}`).then(function(openAuthData){
+      const testing = openAuthData.data
+      localStorage.setItem("fbId", openAuthData.data[0].id)
+      console.log(testing)
+    
+    if(!testing[0]){
+    axios
+   
+.post('http://localhost:1337/open-auths', {
+userId: response.userID
+
+})}
+}
+
+//     console.log(response.id)
+//         axios
+//        .post('http://localhost:1337/open-auths', {
+//       userId: response.id
+    
+//      })
+// .then ( response => {
+//  localStorage.setItem("userInfo", response.id);
+//  localStorage.setItem("userAdmin", response.admin);
   
-     })
-.then ( response => {
- localStorage.setItem("userInfo", response.id);
- localStorage.setItem("userAdmin", response.admin);
-  
- })
+//  }
+)
           
     if (response.accessToken) {
        setLogin(true);
